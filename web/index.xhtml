@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+<ui:composition template="WEB-INF/Layouts/BasicLayout.xhtml">
+
+    <ui:define name="title">
+        Register
+    </ui:define>
+
+    <ui:define name="header">
+        Registrirajte se!
+    </ui:define>
+    <ui:define name="content">
+        <h:form>
+            <h:panelGrid columns="3">
+                <h:outputLabel>Ime: </h:outputLabel>
+                <h:inputText id="ime" value="#{zrno.oseba.ime}" validatorMessage="Ime je zahtevano"><f:validateRequired/></h:inputText>
+                <h:message for="ime"/>
+                <h:outputLabel>Priimek: </h:outputLabel>
+                <h:inputText id="priimek" value="#{zrno.oseba.priimek}" validatorMessage="Priimek je zahtevan"><f:validateRequired/></h:inputText>
+                <h:message for="priimek"/>
+                <h:outputLabel>Spol: </h:outputLabel>
+                <h:selectOneRadio id="spol" validatorMessage="Spol je zahtevan" value="#{zrno.oseba.spol}">
+                    <f:selectItem itemLabel="Moški" itemValue="M" />
+                    <f:selectItem itemLabel="Ženska" itemValue="Ž"/>
+                    <f:validateRequired/>
+                </h:selectOneRadio>
+                <h:message for="spol"/>
+                <h:outputLabel>Datum Rojstva: </h:outputLabel>
+                <h:inputText id="dRojstva" value="#{zrno.oseba.datumRojstva}" validatorMessage="Datum rojstva je zahtevan"><f:convertDateTime dateStyle="short"/><f:validateRequired/></h:inputText>
+                <h:message for="dRojstva"/>
+                <h:outputLabel>Telesna Teža: </h:outputLabel>
+                <h:inputText id="tTeza" value="#{zrno.oseba.telesnaTeza}" validatorMessage="Telesna teža je zahtevana"><f:convertNumber/><f:validateRequired/></h:inputText>
+                <h:message for="tTeza"/>
+                <h:outputLabel>Telesna Višina: </h:outputLabel>
+                <h:inputText id="tVisina" value="#{zrno.oseba.telesnaVisina}" validatorMessage="Telesna višina je zahtevana"><f:convertNumber/><f:validateRequired/></h:inputText>
+                <h:message for="tVisina"/>
+                <h:outputLabel>E-Mail: </h:outputLabel>
+                <h:inputText type="email" id="email" value="#{zrno.oseba.email}" validatorMessage="E-Mail je zahtevan"><f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"/></h:inputText>
+                <h:message for="email"/>
+                <h:commandButton actionListener="#{zrno.dodajOsebo()}" action="uporabnikiList" value="OK!"/>
+            </h:panelGrid>
+        </h:form>
+    </ui:define>
+</ui:composition>
+<script type="text/javascript">
+    PrimeFaces.locales['de'] = {
+        closeText: 'Schließen',
+        prevText: 'Zurück',
+        nextText: 'Weiter',
+        monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+        monthNamesShort: ['Jan', 'Feb', 'März', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+        dayNames: ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'],
+        dayNamesShort: ['Son', 'Mon', 'Die', 'Mit', 'Don', 'Fre', 'Sam'],
+        dayNamesMin: ['S', 'M', 'D', 'M ', 'D', 'F ', 'S'],
+        weekHeader: 'Woche',
+        FirstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        timeOnlyTitle: 'Nur Zeit',
+        timeText: 'Zeit',
+        hourText: 'Stunde',
+        minuteText: 'Minute',
+        secondText: 'Sekunde',
+        currentText: 'Aktuelles Datum',
+        ampm: false,
+        month: 'Monat',
+        week: 'Woche',
+        day: 'Tag',
+        allDayText: 'Ganzer Tag'
+    };
+</script>
+
+</html>
