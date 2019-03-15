@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+<head>
+    <title><ui:insert name="title">Default Title</ui:insert></title>
+    <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+    <h:outputStylesheet library="js" name="bootstrap.min.js"/>
+</head>
+<body>
+<div id="header">
+    <ul style="list-style: none;">
+        <li style="float: left"><h:button value="Registracija" outcome="index"/></li>
+        <li style="float: left"><h:button value="Uporabniki" outcome="uporabnikiList"/></li>
+        <li style="float: left"><h:button value="Dodaj Aktivnost" outcome="aktivnost"/></li>
+        <li style="float: left"><h:button value="Seznam Aktivnosti" outcome="aktivnostiList"/></li>
+    </ul>
+    <br/>
+    <h1>
+        <ui:insert name="header">Header area</ui:insert>
+    </h1>
+</div>
+<hr/>
+<div id="content">
+    <ui:insert name="content">Content area
+        <hr/>
+    </ui:insert>
+</div>
+
+<div id="footer">
+    <hr/>
+    <ui:insert name="footer">Footer area
+    </ui:insert>
+</div>
+</body>
+</html>
