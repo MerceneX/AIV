@@ -1,6 +1,9 @@
 package Models.DAOs;
 
+import Mailman.Email;
+import Mailman.Logger;
 import Models.Aktivnost;
+import Models.Oseba;
 
 import java.util.ArrayList;
 
@@ -19,12 +22,19 @@ public class AktivnostDAO
         return dao;
     }
 
-    public void dodaj(Aktivnost aktivnost)
+    public void dodaj(Aktivnost aktivnost, Oseba o)
     {
         Aktivnost najdenaAktivnost = najdiAktivnostPoNazivu(aktivnost.getNaziv());
         if (najdenaAktivnost == null)
         {
-            aktivnosti.add(aktivnost);
+            Aktivnost copyAktivnost = new Aktivnost(aktivnost);
+            aktivnosti.add(copyAktivnost);
+            Email mail = new Email();
+            Logger log = new Logger();
+            aktivnost.prijavi(mail);
+            aktivnost.prijavi(log);
+            copyAktivnost.obvesti();
+
         } else
         {
             posodobiAktivnost(najdenaAktivnost, aktivnost);
@@ -47,6 +57,7 @@ public class AktivnostDAO
         stara.setKm(nova.getKm());
         stara.setDatumAktivnosti(nova.getDatumAktivnosti());
         stara.setLastnik(nova.getLastnik());
+        nova.obvesti();
     }
 
     public ArrayList<Aktivnost> vrniVse()

@@ -1,18 +1,32 @@
 package Models;
 
+import Interfaces.IOpazovalec;
+import Interfaces.IOpzaovaniDel;
+
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 
-public class Aktivnost
+public class Aktivnost implements Serializable, IOpzaovaniDel
 {
     private String naziv;
     private double km;
     private Date datumAktivnosti;
     private String lastnik;
+    private ArrayList<IOpazovalec> opazovalci = new ArrayList<>();
 
     public Aktivnost()
     {
     }
 
+    public Aktivnost(Aktivnost aktivnost)
+    {
+        this.naziv = aktivnost.naziv;
+        this.km = aktivnost.km;
+        this.datumAktivnosti = aktivnost.datumAktivnosti;
+        this.lastnik = aktivnost.lastnik;
+        this.opazovalci = aktivnost.opazovalci;
+    }
 
     @Override
     public String toString()
@@ -25,11 +39,29 @@ public class Aktivnost
                 '}';
     }
 
-    public Aktivnost(String naziv, double km, Date datumAktivnosti)
+
+
+    @Override
+    public void prijavi(IOpazovalec o)
     {
-        this.naziv = naziv;
-        this.km = km;
-        this.datumAktivnosti = datumAktivnosti;
+        opazovalci.add(o);
+    }
+
+    @Override
+    public void odjavi(IOpazovalec o)
+    {
+        opazovalci.remove(o);
+    }
+
+    @Override
+    public void obvesti()
+    {
+        System.out.println(String.format("Kličem update"));
+        for (IOpazovalec obs:
+             opazovalci)
+        {
+            obs.posodobi(lastnik, this);
+        }
     }
 
     public String getNaziv()
@@ -72,4 +104,13 @@ public class Aktivnost
         this.lastnik = lastnik;
     }
 
+    public ArrayList<IOpazovalec> getOpazovalci()
+    {
+        return opazovalci;
+    }
+
+    public void setOpazovalci(ArrayList<IOpazovalec> opazovalci)
+    {
+        this.opazovalci = opazovalci;
+    }
 }

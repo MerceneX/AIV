@@ -117,4 +117,6 @@ public class Oseba implements Serializable
     {
         this.email = email;
     }
+
+
 }

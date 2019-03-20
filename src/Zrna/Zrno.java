@@ -39,17 +39,19 @@ public class Zrno implements Serializable
 
     public void dodajAktivnost()
     {
-        System.out.println(aktivnost.toString());
-        aktivnostDAO.dodaj(aktivnost);
+        Aktivnost copyAktivnost = new Aktivnost(aktivnost);
+        aktivnostDAO.dodaj(copyAktivnost, osebaDAO.najdiOseboPoImenu(aktivnost.getLastnik()));
         aktivnost = new Aktivnost();
     }
 
-    public String vrniUrejanjePoImenu(String ime){
+    public String vrniUrejanjePoImenu(String ime)
+    {
         oseba = osebaDAO.najdiOseboPoImenu(ime);
         return "index.xhtml";
     }
 
-    public String vrniUrejanjePoNazivu(String naziv){
+    public String vrniUrejanjePoNazivu(String naziv)
+    {
         aktivnost = aktivnostDAO.najdiAktivnostPoNazivu(naziv);
         return "aktivnost.xhtml";
     }
