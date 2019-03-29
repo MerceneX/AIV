@@ -3,17 +3,25 @@ package Models;
 import Interfaces.IOpazovalec;
 import Interfaces.IOpzaovaniDel;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
+@Entity
+@Table
 public class Aktivnost implements Serializable, IOpzaovaniDel
 {
+    @Id
+    @GeneratedValue
+    private int id;
     private String naziv;
     private double km;
     private Date datumAktivnosti;
     private String lastnik;
-    private ArrayList<IOpazovalec> opazovalci = new ArrayList<>();
+
+    @ManyToOne
+    private Oseba osebaLastnik;
 
     public Aktivnost()
     {
@@ -25,7 +33,7 @@ public class Aktivnost implements Serializable, IOpzaovaniDel
         this.km = aktivnost.km;
         this.datumAktivnosti = aktivnost.datumAktivnosti;
         this.lastnik = aktivnost.lastnik;
-        this.opazovalci = aktivnost.opazovalci;
+        this.osebaLastnik = aktivnost.osebaLastnik;
     }
 
     @Override
@@ -109,8 +117,23 @@ public class Aktivnost implements Serializable, IOpzaovaniDel
         return opazovalci;
     }
 
-    public void setOpazovalci(ArrayList<IOpazovalec> opazovalci)
+    public Oseba getOsebaLastnik()
     {
-        this.opazovalci = opazovalci;
+        return osebaLastnik;
+    }
+
+    public void setOsebaLastnik(Oseba osebaLastnik)
+    {
+        this.osebaLastnik = osebaLastnik;
+    }
+
+    public int getId()
+    {
+        return id;
+    }
+
+    public void setId(int id)
+    {
+        this.id = id;
     }
 }

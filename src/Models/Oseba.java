@@ -1,9 +1,13 @@
 package Models;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 
+@Entity
+@Table
 public class Oseba implements Serializable
 {
 
@@ -19,8 +23,9 @@ public class Oseba implements Serializable
     private Date datumRojstva;
     private double telesnaTeza;
     private double telesnaVisina;
+    @Id
     private String email;
-    public ArrayList<Aktivnost> aktivnosti = new ArrayList<>();
+    //public ArrayList<Aktivnost> aktivnosti = new ArrayList<>();
 
     public Oseba(String ime, String priimek, String spol, Date datumRojstva, double telesnaTeza, double telesnaVisina, String email)
     {

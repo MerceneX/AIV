@@ -5,54 +5,62 @@ import Mailman.Logger;
 import Models.Aktivnost;
 import Models.Oseba;
 
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 
-public class AktivnostDAO
+@Stateless
+public class AktivnostDAO implements Models.DAOs.IDAOs.IAktivnostDAO
 {
     private ArrayList<Aktivnost> aktivnosti = new ArrayList<>();
+    @PersistenceContext
+    private EntityManager em;
 
-    private AktivnostDAO()
+    public AktivnostDAO()
     {
     }
 
-    private static AktivnostDAO dao = new AktivnostDAO();
-
-    public static AktivnostDAO getInstance()
-    {
-        return dao;
-    }
-
+    @Override
     public void dodaj(Aktivnost aktivnost, Oseba o)
     {
         Aktivnost najdenaAktivnost = najdiAktivnostPoNazivu(aktivnost.getNaziv());
         if (najdenaAktivnost == null)
         {
+            OsebaDAO osebaDAO = new OsebaDAO();
+            aktivnost.setOsebaLastnik(o);
             Aktivnost copyAktivnost = new Aktivnost(aktivnost);
-            aktivnosti.add(copyAktivnost);
             Email mail = new Email();
             Logger log = new Logger();
-            aktivnost.prijavi(mail);
-            aktivnost.prijavi(log);
-            copyAktivnost.obvesti();
+            copyAktivnost.prijavi(mail);
+            copyAktivnost.prijavi(log);
+            aktivnosti.add(copyAktivnost);
+            //copyAktivnost.obvesti();
+            em.persist(copyAktivnost);
 
         } else
         {
             posodobiAktivnost(najdenaAktivnost, aktivnost);
+            em.merge(najdenaAktivnost);
         }
     }
 
+    @Override
     public Aktivnost najdiAktivnostPoNazivu(String naziv)
     {
-        for (Aktivnost a : aktivnosti)
+        Aktivnost akt;
+        try
         {
-            if (a.getNaziv().equals(naziv))
-            {
-                return a;
-            }
+            akt = (Aktivnost)em.createQuery("SELECT a from Aktivnost a Where a.naziv=?1").setParameter(1,naziv).getSingleResult();
+            return akt;
+        }catch (Exception e)
+        {
+            System.out.println("Napaka pri iskanju \n"+e);
+            return null;
         }
-        return null;
     }
 
+    @Override
     public void posodobiAktivnost(Aktivnost stara, Aktivnost nova){
         stara.setKm(nova.getKm());
         stara.setDatumAktivnosti(nova.getDatumAktivnosti());
@@ -60,6 +68,7 @@ public class AktivnostDAO
         nova.obvesti();
     }
 
+    @Override
     public ArrayList<Aktivnost> vrniVse()
     {
         return aktivnosti;
