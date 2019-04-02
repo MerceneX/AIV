@@ -10,7 +10,6 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Named("zrno")
@@ -23,11 +22,6 @@ public class Zrno implements Serializable, IZrno
     private IOsebaDAO osebaDAO;
     @EJB
     private IAktivnostDAO aktivnostDAO;
-
-    public IOsebaDAO getOsebaDAO()
-    {
-        return osebaDAO;
-    }
 
     @Override
     public void dodajOsebo()
@@ -66,7 +60,7 @@ public class Zrno implements Serializable, IZrno
     }
 
     @Override
-    public ArrayList<Aktivnost> vrniVseAktivnosti()
+    public List<Aktivnost> vrniVseAktivnosti()
     {
         return aktivnostDAO.vrniVse();
     }

@@ -25,7 +25,6 @@ public class Oseba implements Serializable
     private double telesnaVisina;
     @Id
     private String email;
-    //public ArrayList<Aktivnost> aktivnosti = new ArrayList<>();
 
     public Oseba(String ime, String priimek, String spol, Date datumRojstva, double telesnaTeza, double telesnaVisina, String email)
     {

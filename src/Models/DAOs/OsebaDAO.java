@@ -11,7 +11,6 @@ import java.util.List;
 @Stateless
 public class OsebaDAO implements IOsebaDAO
 {
-    private List<Oseba> osebe;
     @PersistenceContext
     private EntityManager em;
 

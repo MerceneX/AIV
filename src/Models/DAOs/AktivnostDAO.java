@@ -2,6 +2,7 @@ package Models.DAOs;
 
 import Mailman.Email;
 import Mailman.Logger;
+import Mailman.Vrsta;
 import Models.Aktivnost;
 import Models.Oseba;
 
@@ -9,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
+import java.util.List;
 
 @Stateless
 public class AktivnostDAO implements Models.DAOs.IDAOs.IAktivnostDAO
@@ -27,15 +29,16 @@ public class AktivnostDAO implements Models.DAOs.IDAOs.IAktivnostDAO
         Aktivnost najdenaAktivnost = najdiAktivnostPoNazivu(aktivnost.getNaziv());
         if (najdenaAktivnost == null)
         {
-            OsebaDAO osebaDAO = new OsebaDAO();
             aktivnost.setOsebaLastnik(o);
             Aktivnost copyAktivnost = new Aktivnost(aktivnost);
             Email mail = new Email();
             Logger log = new Logger();
+            Vrsta vs = new Vrsta();
             copyAktivnost.prijavi(mail);
             copyAktivnost.prijavi(log);
+            copyAktivnost.prijavi(vs);
             aktivnosti.add(copyAktivnost);
-            //copyAktivnost.obvesti();
+            copyAktivnost.obvesti();
             em.persist(copyAktivnost);
 
         } else
@@ -69,19 +72,10 @@ public class AktivnostDAO implements Models.DAOs.IDAOs.IAktivnostDAO
     }
 
     @Override
-    public ArrayList<Aktivnost> vrniVse()
+    public List<Aktivnost> vrniVse()
     {
-        return aktivnosti;
+        return (List<Aktivnost>) em.createQuery("SELECT a from Aktivnost a").getResultList();
     }
 
-    public ArrayList<Aktivnost> getAktivnosti()
-    {
-        return aktivnosti;
-    }
-
-    public void setAktivnosti(ArrayList<Aktivnost> aktivnosti)
-    {
-        this.aktivnosti = aktivnosti;
-    }
 
 }

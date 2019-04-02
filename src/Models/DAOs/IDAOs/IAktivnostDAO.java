@@ -4,7 +4,7 @@ import Models.Aktivnost;
 import Models.Oseba;
 
 import javax.ejb.Local;
-import java.util.ArrayList;
+import java.util.List;
 
 @Local
 public interface IAktivnostDAO
@@ -15,5 +15,5 @@ public interface IAktivnostDAO
 
     void posodobiAktivnost(Aktivnost stara, Aktivnost nova);
 
-    ArrayList<Aktivnost> vrniVse();
+    List<Aktivnost> vrniVse();
 }

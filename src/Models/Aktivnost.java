@@ -68,7 +68,7 @@ public class Aktivnost implements Serializable, IOpzaovaniDel
         for (IOpazovalec obs:
              opazovalci)
         {
-            obs.posodobi(lastnik, this);
+            obs.posodobi(osebaLastnik, this);
         }
     }
 
