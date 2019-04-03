@@ -32,6 +32,8 @@ public class Vrsta implements IOpazovalec
 
             //sporoèilo, ki ni trajno
             Message m=session.createTextMessage("NETRAJNO SPOROCILO");
+            Message osM = session.createObjectMessage(a);
+            sender.send(osM);
             sender.send(m,DeliveryMode.NON_PERSISTENT,3,2000);
 
             //sporoèilo, ki je trajno

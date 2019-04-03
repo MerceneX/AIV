@@ -1,6 +1,5 @@
 package Models.DAOs;
 
-import Mailman.Email;
 import Mailman.Logger;
 import Mailman.Vrsta;
 import Models.Aktivnost;
@@ -31,12 +30,10 @@ public class AktivnostDAO implements Models.DAOs.IDAOs.IAktivnostDAO
         {
             aktivnost.setOsebaLastnik(o);
             Aktivnost copyAktivnost = new Aktivnost(aktivnost);
-            Email mail = new Email();
-            Logger log = new Logger();
-            Vrsta vs = new Vrsta();
-            copyAktivnost.prijavi(mail);
-            copyAktivnost.prijavi(log);
-            copyAktivnost.prijavi(vs);
+            //Email mail = new Email();
+            //copyAktivnost.prijavi(mail);
+            copyAktivnost.prijavi( new Logger());
+            copyAktivnost.prijavi(new Vrsta());
             aktivnosti.add(copyAktivnost);
             copyAktivnost.obvesti();
             em.persist(copyAktivnost);

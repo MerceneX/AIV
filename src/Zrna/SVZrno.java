@@ -6,9 +6,7 @@ import Models.Oseba;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
-import javax.jms.Message;
-import javax.jms.MessageListener;
-import javax.jms.TextMessage;
+import javax.jms.*;
 
 @MessageDriven(messageListenerInterface = MessageListener.class,
     activationConfig = {
@@ -33,12 +31,21 @@ public class SVZrno implements MessageListener
         if (message instanceof TextMessage) {
             TextMessage tm = (TextMessage) message;
             try {
-                mailman.sendMail(o,a);
+                System.out.println(tm.getText());
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } else {
-            System.out.println("Prispelo je neznano sporoèilo.");
+        } else if(message instanceof ObjectMessage){
+            ObjectMessage objectMessage = (ObjectMessage)message;
+            try
+            {
+                Aktivnost a = (Aktivnost)objectMessage.getObject();
+                Oseba o = a.getOsebaLastnik();
+                mailman.sendMail(o,a);
+            } catch (JMSException e)
+            {
+                e.printStackTrace();
+            }
         }
     }
 
