@@ -2,6 +2,7 @@ package Models;
 
 import Interfaces.IOpazovalec;
 import Interfaces.IOpzaovaniDel;
+import Interfaces.IPrototip;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,7 +11,7 @@ import java.util.Date;
 
 @Entity
 @Table
-public class Aktivnost implements Serializable, IOpzaovaniDel
+public class Aktivnost implements Serializable, IOpzaovaniDel, IPrototip
 {
     @Id
     @GeneratedValue
@@ -35,6 +36,8 @@ public class Aktivnost implements Serializable, IOpzaovaniDel
         this.lastnik = aktivnost.lastnik;
         this.osebaLastnik = aktivnost.osebaLastnik;
     }
+
+
 
     @Override
     public String toString()
@@ -135,5 +138,15 @@ public class Aktivnost implements Serializable, IOpzaovaniDel
     public void setId(int id)
     {
         this.id = id;
+    }
+
+    @Override
+    public void Clone(Aktivnost aktivnost)
+    {
+        this.naziv = aktivnost.naziv;
+        this.km = aktivnost.km;
+        this.datumAktivnosti = aktivnost.datumAktivnosti;
+        this.lastnik = aktivnost.lastnik;
+        this.osebaLastnik = aktivnost.osebaLastnik;
     }
 }

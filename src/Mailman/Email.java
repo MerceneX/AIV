@@ -36,7 +36,7 @@ public class Email implements IOpazovalec
             Message message = new MimeMessage(session);
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(os.getEmail()));
             message.setSubject("Sprememba aktivnosti");
-            message.setText(a.getNaziv() + "se je spremenilo");
+            message.setText(a.getNaziv() + " se je spremenilo");
             Transport.send(message);
 
         } catch (MessagingException | NamingException e)
