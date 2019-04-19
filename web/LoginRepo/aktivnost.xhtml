@@ -5,7 +5,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
-<ui:composition template="WEB-INF/Layouts/BasicLayout.xhtml">
+<ui:composition template="../WEB-INF/Layouts/BasicLayout.xhtml">
 
     <ui:define name="title">
         Aktivnost
@@ -24,6 +24,10 @@
                         <h:inputText value="#{zrno.aktivnost.naziv}"><f:validateRequired/></h:inputText>
                         <h:outputLabel>Opravljeni KM: </h:outputLabel>
                         <h:inputText value="#{zrno.aktivnost.km}"><f:convertNumber/></h:inputText>
+                        <h:outputLabel>Tip aktivnosti: </h:outputLabel>
+                        <h:inputText value="#{zrno.aktivnost.tip}"><f:validateRequired/></h:inputText>
+                        <h:outputLabel>Mail za obvestila: </h:outputLabel>
+                        <h:inputText value="#{zrno.aktivnost.sova}"><f:validateRequired/></h:inputText>
                         <h:outputLabel>Datum Aktivnosti: </h:outputLabel>
                         <h:inputText value="#{zrno.aktivnost.datumAktivnosti}"><f:convertDateTime dateStyle="short"/><f:validateRequired/></h:inputText>
                         <h:outputLabel>Uporabnik: </h:outputLabel>

@@ -44,4 +44,22 @@ public class Email implements IOpazovalec
             Logger.getLogger(Email.class.getName()).log(Level.WARNING, "Cannot posodobi mail", e);
         }
     }
+
+    public void sendMail(Oseba os, Aktivnost a, String messageString){
+        try
+        {
+            InitialContext ic = new InitialContext();
+            session = (Session) ic.lookup("java:jboss/mail/gmail");
+            Message message = new MimeMessage(session);
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(os.getEmail()));
+            message.setSubject("Sprememba aktivnosti");
+            message.setText(messageString);
+            Transport.send(message);
+
+        } catch (MessagingException | NamingException e)
+        {
+            Logger.getLogger(Email.class.getName()).log(Level.WARNING, "Cannot posodobi mail", e);
+        }
+    }
+
 }

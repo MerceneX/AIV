@@ -1,6 +1,9 @@
 package Zrna;
 
 import Mailman.Email;
+import MessagingStrategy.DefaultStrategy;
+import MessagingStrategy.FormalStrategy;
+import MessagingStrategy.InformalStrategy;
 import Models.Aktivnost;
 import Models.Oseba;
 
@@ -41,7 +44,20 @@ public class SVZrno implements MessageListener
             {
                 Aktivnost a = (Aktivnost)objectMessage.getObject();
                 Oseba o = a.getOsebaLastnik();
-                mailman.sendMail(o,a);
+                switch (a.getTip()){
+                    case "Formalna":
+                        FormalStrategy fs = new FormalStrategy();
+                        fs.DoIt(a);
+                        break;
+                    case "Neformalna":
+                        InformalStrategy nfs = new InformalStrategy();
+                        nfs.DoIt(a);
+                        break;
+                    default:
+                        DefaultStrategy dfs = new DefaultStrategy();
+                        dfs.DoIt(a);
+                        break;
+                }
             } catch (JMSException e)
             {
                 e.printStackTrace();

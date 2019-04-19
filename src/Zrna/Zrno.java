@@ -65,6 +65,16 @@ public class Zrno implements Serializable, IZrno
         return aktivnostDAO.vrniVse();
     }
 
+    @Override
+    public Aktivnost podvoji(String a)
+    {
+        aktivnost = aktivnostDAO.najdiAktivnostPoNazivu(a);
+        Aktivnost podvojena = (Aktivnost) aktivnost.Clone();
+        podvojena.setNaziv(podvojena.getNaziv()+"1");
+        aktivnostDAO.dodaj(podvojena, osebaDAO.najdiOseboPoImenu(podvojena.getLastnik()));
+        return null;
+    }
+
     public Oseba getOseba()
     {
         return oseba;

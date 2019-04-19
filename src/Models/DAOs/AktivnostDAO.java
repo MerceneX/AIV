@@ -29,9 +29,7 @@ public class AktivnostDAO implements Models.DAOs.IDAOs.IAktivnostDAO
         if (najdenaAktivnost == null)
         {
             aktivnost.setOsebaLastnik(o);
-            Aktivnost copyAktivnost = new Aktivnost(aktivnost);
-            //Email mail = new Email();
-            //copyAktivnost.prijavi(mail);
+            Aktivnost copyAktivnost = (Aktivnost)aktivnost.Clone();
             copyAktivnost.prijavi( new Logger());
             copyAktivnost.prijavi(new Vrsta());
             aktivnosti.add(copyAktivnost);

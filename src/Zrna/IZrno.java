@@ -18,4 +18,6 @@ public interface IZrno
     String vrniUrejanjePoNazivu(String naziv);
 
     List<Aktivnost> vrniVseAktivnosti();
+
+    Aktivnost podvoji(String aktivnost);
 }

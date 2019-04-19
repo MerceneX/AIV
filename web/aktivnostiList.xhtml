@@ -41,6 +41,10 @@
                             <f:facet name="header">Uredi:</f:facet>
                             <h:commandButton value="Uredi" action="#{zrno.vrniUrejanjePoNazivu(o.naziv)}"/>
                         </h:column>
+                        <h:column>
+                            <f:facet name="header">Podvoji:</f:facet>
+                            <h:commandButton value="Podvoji" action="#{zrno.podvoji(o.naziv)}"/>
+                        </h:column>
                     </h:dataTable>
                 </div>
             </div>

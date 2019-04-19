@@ -20,6 +20,8 @@ public class Aktivnost implements Serializable, IOpzaovaniDel, IPrototip
     private double km;
     private Date datumAktivnosti;
     private String lastnik;
+    private String tip;
+    private String sova;
 
     @ManyToOne
     private Oseba osebaLastnik;
@@ -35,6 +37,8 @@ public class Aktivnost implements Serializable, IOpzaovaniDel, IPrototip
         this.datumAktivnosti = aktivnost.datumAktivnosti;
         this.lastnik = aktivnost.lastnik;
         this.osebaLastnik = aktivnost.osebaLastnik;
+        this.tip = aktivnost.tip;
+        this.sova = aktivnost.sova;
     }
 
 
@@ -73,6 +77,12 @@ public class Aktivnost implements Serializable, IOpzaovaniDel, IPrototip
         {
             obs.posodobi(osebaLastnik, this);
         }
+    }
+
+    @Override
+    public Object Clone()
+    {
+        return new Aktivnost(this);
     }
 
     public String getNaziv()
@@ -140,13 +150,23 @@ public class Aktivnost implements Serializable, IOpzaovaniDel, IPrototip
         this.id = id;
     }
 
-    @Override
-    public void Clone(Aktivnost aktivnost)
+    public String getTip()
     {
-        this.naziv = aktivnost.naziv;
-        this.km = aktivnost.km;
-        this.datumAktivnosti = aktivnost.datumAktivnosti;
-        this.lastnik = aktivnost.lastnik;
-        this.osebaLastnik = aktivnost.osebaLastnik;
+        return tip;
+    }
+
+    public void setTip(String tip)
+    {
+        this.tip = tip;
+    }
+
+    public String getSova()
+    {
+        return sova;
+    }
+
+    public void setSova(String sova)
+    {
+        this.sova = sova;
     }
 }
